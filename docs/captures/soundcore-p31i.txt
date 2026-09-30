@@ -66,4 +66,10 @@ $ tools/soundcore_probe.py 34:09:C9:A4:68:10 4
 04:35:54.926 <<< STATE: mode=unknown(255) params=ffffffffffff
 04:35:55.386 == done
 
+# Owner follow-up, 2026-09-30 (app capability report, not a probe capture):
+# @mikesmenzvdsa confirms that the phone app offers both Ambient level and
+# wind noise reduction. The owner is away from the Omarchy machine.
+# Read-only probes for Ambient level 1, Ambient level 5, wind on and wind off
+# remain pending. No new hardware replies were collected for this follow-up.
+
 

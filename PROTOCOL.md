@@ -1542,9 +1542,12 @@ The vendor UUID is `0cf12d31-fac3-4553-bd80-d6832e7d1202`, model suffix
 `d1202`, and the Fast Pair Message Stream UUID is also present.
 
 The P31i uses the existing Soundcore RFCOMM framing and commands. Its `01 01`
-state response is a complete 152-byte payload, but the generic offset contains
-`ff` bytes rather than a mode. A `06 01` query answers with the device's own
-eight-byte mode body:
+state response is a complete 152-byte payload. The mode block starts at
+0-based payload offset **119**, with `02` / `00` / `01` followed by `51` for
+Off / ANC / Ambient in every captured state. The generic offset 71 contains
+`ff` bytes rather than a mode. The P31i row reads offset 119, so the first
+report already has the correct mode and trailing fields. A `06 01` query
+answers with the device's own eight-byte mode body:
 
 ```
 02 51 00 00 00 00 00 00   Off
@@ -1565,8 +1568,10 @@ these device-specific frames:
 Fast Pair reported left 100%, right 100% and case 20% during the live check.
 Off, ANC and Ambient were each set through the shell and read back from the
 headphones; Off was restored at the end. The mode row is confirmed. Ambient
-level and wind-noise reduction were not separately confirmed on this model;
-charging transitions, disconnect/reconnect recovery, peer isolation and
+level and wind-noise reduction were not separately confirmed on this model.
+The owner confirmed on 2026-09-30 that the phone app offers both controls,
+but labelled probes for Ambient levels 1 and 5 and wind on/off remain pending.
+Charging transitions, disconnect/reconnect recovery, peer isolation and
 acoustic effect are untested. The bridge's generic six-byte interpretation
 currently exposes the observed trailing fields as level `0` and voice
 `false`; no control was sent for either.
